@@ -37,6 +37,8 @@ dependencies = [
     "pytest-mock>=3.15.1",
     "pymongo>=4.17.0",
     "sqlalchemy>=2.0.52",
+    "pytest-ranking>=0.3.4",
+    "pytest-regsmart @ git+https://github.com/leticosta4/pytest-regsmart.git@main",
 ]
 dynamic = ["version"]
 
