@@ -1,4 +1,4 @@
-name: test suite  with pytest-regsmart RTS Only
+name: test suite with pytest-ranking
 
 on:
   push:
@@ -10,12 +10,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.102"]
+        python-version: ["3.12"]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v7
-      with:
-        fetch-depth: 0
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v7
       with:
@@ -29,8 +27,22 @@ jobs:
       run: python -m pip install "pip >= 25.1"
     - name: Install the project and its dependencies
       run: pip install --group test -e .
-    - name: Test with pytest
-      run: coverage run -m pytest -v --regsmart --no-rank
+    - name: Restore pytest-ranking cache
+      id: restore-pytest-ranking-cache
+      if: always()
+      uses: actions/cache/restore@v4
+      with:
+        path: ${{ github.workspace }}/.pytest_cache/v/pytest_ranking_data
+        key: pytest-ranking-cache-${{ github.workflow }}-${{ runner.os }}-${{ matrix.python }}
+    - name: Test with pytest-ranking
+      run: coverage run -m pytest -v  --rank
+    - name: Save pytest-ranking cache
+      id: save-pytest-ranking-cache
+      if: always()
+      uses: actions/cache/save@v4
+      with:
+        path: ${{ github.workspace }}/.pytest_cache/v/pytest_ranking_data
+        key: pytest-ranking-cache-${{ github.workflow }}-${{ runner.os }}-${{ matrix.python }}-${{ github.run_id }}
     - name: Generate coverage report
       run: coverage xml
     - name: Upload Coverage
