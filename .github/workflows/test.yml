@@ -86,14 +86,14 @@ jobs:
   #       parallel: true
   #       file: coverage.xml
 
-  coveralls:
-    name: Finish Coveralls
-    needs:
-      - test-linux
-      # - test-others
-    runs-on: ubuntu-latest
-    steps:
-    - name: Finished
-      uses: coverallsapp/github-action@v2
-      with:
-        parallel-finished: true
+  # coveralls:
+  #   name: Finish Coveralls
+  #   needs:
+  #     - test-linux
+  #     # - test-others
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Finished
+  #     uses: coverallsapp/github-action@v2
+  #     with:
+  #       parallel-finished: true
