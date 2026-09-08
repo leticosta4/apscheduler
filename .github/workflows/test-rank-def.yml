@@ -1,4 +1,4 @@
-name: test suite original
+name: test suite with pytest-ranking
 
 on:
   push:
@@ -27,8 +27,22 @@ jobs:
       run: python -m pip install "pip >= 25.1"
     - name: Install the project and its dependencies
       run: pip install --group test -e .
-    - name: Test with pytest
-      run: coverage run -m pytest -v
+    - name: Restore pytest-ranking cache
+      id: restore-pytest-ranking-cache
+      if: always()
+      uses: actions/cache/restore@v4
+      with:
+        path: ${{ github.workspace }}/.pytest_cache/v/pytest_ranking_data
+        key: pytest-ranking-cache-${{ github.workflow }}-${{ runner.os }}-${{ matrix.python }}
+    - name: Test with pytest-ranking
+      run: coverage run -m pytest -v  --rank
+    - name: Save pytest-ranking cache
+      id: save-pytest-ranking-cache
+      if: always()
+      uses: actions/cache/save@v4
+      with:
+        path: ${{ github.workspace }}/.pytest_cache/v/pytest_ranking_data
+        key: pytest-ranking-cache-${{ github.workflow }}-${{ runner.os }}-${{ matrix.python }}-${{ github.run_id }}
     - name: Generate coverage report
       run: coverage xml
     - name: Upload Coverage
