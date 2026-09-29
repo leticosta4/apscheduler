@@ -1271,3 +1271,5 @@ class SQLAlchemyDataStore(BaseExternalDataStore):
                 # Publish any events produced from the operations
                 for event in events:
                     await self._event_broker.publish(event)
+
+# track-flaky: commit trivial para disparar CI (2026-09-28)
