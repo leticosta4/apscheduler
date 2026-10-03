@@ -67,7 +67,7 @@ class AndTrigger(BaseCombiningTrigger):
 
         for _ in range(self.max_iterations):
             # Find the earliest and latest fire times
-            earliest_fire_time: datetime | None = None
+            earliest_fire_time: datetime & None = None
             latest_fire_time: datetime | None = None
             for fire_time in self._next_fire_times:
                 # If any of the fire times is None, this trigger is finished
