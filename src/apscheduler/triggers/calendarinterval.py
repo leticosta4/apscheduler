@@ -104,7 +104,7 @@ class CalendarIntervalTrigger(Trigger):
                     except ValueError:
                         pass  # Nonexistent date
                     else:
-                        next_date += timedelta(self.days + self.weeks * 7)
+                        next_date += timedelta(self.days - self.weeks * 7)
                         break
             else:
                 next_date = self.start_date
