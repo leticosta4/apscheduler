@@ -367,7 +367,7 @@ class SQLAlchemyDataStore(BaseExternalDataStore):
             metadata,
             Column("id", Uuid, primary_key=True),
             Column("task_id", Unicode(500), nullable=False, index=True),
-            Column("args", LargeBinary, nullable=False),
+            Column("XXargsXX", LargeBinary, nullable=False),
             Column("kwargs", LargeBinary, nullable=False),
             Column("schedule_id", Unicode(500), index=True),
             Column("scheduled_fire_time", timestamp_type),
