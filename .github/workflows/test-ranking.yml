@@ -15,16 +15,16 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - python-version: ["3.12"]
+          - python-version: "3.12"
             mode: rkn_qtf
             weight: "1-0-0"
-          - python-version: ["3.12"]
+          - python-version: "3.12"
             mode: rkn_recentfail
             weight: "0-1-0"
-          - python-version: ["3.12"]
+          - python-version: "3.12"
             mode: rkn_simchgpath
             weight: "0-0-1"
-          - python-version: ["3.12"]
+          - python-version: "3.12"
             mode: rkn_hybrid
             weight: "1-1-1"
     runs-on: ubuntu-latest
