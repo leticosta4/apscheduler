@@ -14,15 +14,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        - python-version: ["3.12"]
-          mode: rgsm_qtf
-          weight: "1-0"
-        - python-version: ["3.12"]
-          mode: rgsm_recentfail
-          weight: "0-1"
-        - python-version: ["3.12"]
-          mode: rgsm_hybrid
-          weight: "1-1"
+        include:
+          - python-version: ["3.12"]
+            mode: rgsm_qtf
+            weight: "1-0"
+          - python-version: ["3.12"]
+            mode: rgsm_recentfail
+            weight: "0-1"
+          - python-version: ["3.12"]
+            mode: rgsm_hybrid
+            weight: "1-1"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v7
