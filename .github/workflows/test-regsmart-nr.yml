@@ -1,13 +1,15 @@
-name: test suite
-
+name: test regsmart no-rtp
 on:
   push:
     branches: [master]
   pull_request:
   workflow_dispatch:
 
+env:
+  REGSMART_PACKAGE: "git+https://github.com/leticosta4/pytest-regsmart@e8fe612271bc27698cd8285a535209262e8e1a03"
+
 jobs:
-  test-linux:
+  test-regsmart-no-rtp:
     strategy:
       fail-fast: false
       matrix:
@@ -15,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v7
+      with:
+        fetch-depth: 0
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v7
       with:
@@ -28,6 +32,10 @@ jobs:
       run: python -m pip install "pip >= 25.1"
     - name: Install the project and its dependencies
       run: pip install --group test -e .
+    - name: Install pytest-regsmart
+      run: |
+        pip install "$REGSMART_PACKAGE"
+        pip freeze
     - name: Test with pytest
-      run: coverage run -m pytest -v -p no:pytest-regsmart -p no:pytest-ranking
+      run: coverage run -m pytest -v --regsmart --no-rank
       #eu tirei job de coverage aqui, talvez devesse manter
