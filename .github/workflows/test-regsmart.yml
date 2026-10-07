@@ -44,8 +44,8 @@ jobs:
     
     - name: Install pytest-regsmart
       run: |
-        pip install --system "$REGSMART_PACKAGE"
-        pip freeze --system
+        pip install "$REGSMART_PACKAGE"
+        pip freeze
 
     - name: Restore pytest-regsmart cache
       id: restore-pytest-regsmart-cache
@@ -56,7 +56,7 @@ jobs:
         restore-keys: |
           pytest-regsmart-cache-${{ github.workflow }}-${{ runner.os }}-${{ matrix.mode }}-
 
-    - name: Test with pytest
+    - name: Test with pytest-regsmart
       run: coverage run -m pytest -v --regsmart --ranking-weight=${{ matrix.weight }}
       #eu tirei job de coverage aqui, talvez devesse manter
     
