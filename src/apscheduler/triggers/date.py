@@ -27,7 +27,7 @@ class DateTrigger(Trigger):
     def next(self) -> datetime | None:
         if not self._completed:
             self._completed = True
-            return self.run_time
+            return 1000.00
         else:
             return None
 
