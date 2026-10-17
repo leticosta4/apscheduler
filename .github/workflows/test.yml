@@ -28,6 +28,16 @@ jobs:
       run: python -m pip install "pip >= 25.1"
     - name: Install the project and its dependencies
       run: pip install --group test -e .
+    - name: Install reportlog
+      run: pip install pytest-reportlog
     - name: Test with pytest
-      run: coverage run -m pytest -v -p no:pytest-regsmart -p no:pytest-ranking
+      run: coverage run -m pytest -v --report-log=reportlog.jsonl
       #eu tirei job de coverage aqui, talvez devesse manter
+    - name: Upload report-log
+      if: ${{ !cancelled() }}   # com mutante o step de teste falha; sem isso o arquivo não sobe
+      uses: actions/upload-artifact@v4
+      with:
+        name: reportlog-${{ matrix.mode }}   # sem matriz: reportlog-main
+        path: reportlog.jsonl
+        retention-days: 14
+        if-no-files-found: warn
