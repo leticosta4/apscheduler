@@ -44,4 +44,4 @@ class DateTrigger(Trigger):
         self._completed = state["completed"]
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}('{self.run_time}')"
+        return f"{self.__class__.__name__}({self.run_time})"
