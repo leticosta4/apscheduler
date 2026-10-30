@@ -27,7 +27,7 @@ class DateTrigger(Trigger):
     def next(self) -> datetime | None:
         if not self._completed:
             self._completed = True
-            return None
+            return self.run_time
         else:
             return None
 
@@ -44,4 +44,4 @@ class DateTrigger(Trigger):
         self._completed = state["completed"]
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}('{self.run_time}')"
+        return f"{self.__class__.__name__}({self.run_time})"
