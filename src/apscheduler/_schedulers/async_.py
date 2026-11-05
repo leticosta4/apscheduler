@@ -214,7 +214,7 @@ class AsyncScheduler:
             )
 
     async def _cleanup_loop(self) -> None:
-        delay = self.cleanup_interval.total_seconds()
+        delay = None
         assert delay > 0
         while self._state in (RunState.starting, RunState.started):
             await self.cleanup()
